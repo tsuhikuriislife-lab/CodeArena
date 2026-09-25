@@ -24,4 +24,36 @@ public abstract class Participation {
         this.submittedSolution = submittedSolution;
         this.xpEarned = xpEarned;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public Challenge getReto() {
+        return reto;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public Date getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public SubmitState getEstado() {
+        return estado;
+    }
+
+    public String getSubmittedSolution() {
+        return submittedSolution;
+    }
+
+    public double getXpEarned() {
+        return xpEarned;
+    }
 }
