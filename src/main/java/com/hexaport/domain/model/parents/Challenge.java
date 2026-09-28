@@ -1,10 +1,10 @@
 package com.hexaport.domain.model.parents;
 
-import com.hexaport.domain.model.enums.Category;
+import com.hexaport.domain.exception.*;
 import com.hexaport.domain.model.enums.Difficulty;
 import com.hexaport.domain.model.enums.Estados;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public abstract class Challenge {
     private final long id;
@@ -13,11 +13,43 @@ public abstract class Challenge {
     private Category categoria;
     private Difficulty dificultad;
     private double xpPrize;
-    private Date fechaCreacion;
-    private Date fechaLimite;
+    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaLimite;
     private Estados estado;
 
-    public Challenge(long id, String titulo, String descripcion, Category categoria, Difficulty dificultad, double xpPrize, Date fechaCreacion, Date fechaLimite, Estados estado) {
+    public Challenge(long id, String titulo, String descripcion, Category categoria, Difficulty dificultad, double xpPrize, LocalDateTime fechaCreacion, LocalDateTime fechaLimite, Estados estado) {
+        if (id <= 0){
+            throw new InvalidNumericValueException("id");
+        }
+        if (titulo == null || titulo.isBlank()){
+            throw new InvalidValueException("titulo");
+        }
+        if (descripcion == null || descripcion.isBlank()){
+            throw new InvalidValueException("descripcion");
+        }
+        if (categoria == null){
+            throw new InvalidStatusException("Categoria");
+        }
+        if (dificultad == null){
+            throw new InvalidStatusException("dificultad");
+        }
+        if (xpPrize <= 0){
+            throw new InvalidNumericValueException("xp prize");
+        }
+        if (fechaCreacion == null){
+            throw new InvalidDateValueException("sj");
+        }
+        if (fechaLimite == null){
+            throw new InvalidDateValueException("jsd");
+        }
+        if (estado == null){
+            throw new InvalidStatusException("estado");
+        }
+        if (fechaCreacion.isAfter(fechaLimite) || fechaLimite.isBefore(fechaCreacion)){
+            throw new IllegalDateException("sd");
+        }
+
+
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -53,11 +85,11 @@ public abstract class Challenge {
         return xpPrize;
     }
 
-    public Date getFechaCreacion() {
+    public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public Date getFechaLimite() {
+    public LocalDateTime getFechaLimite() {
         return fechaLimite;
     }
 

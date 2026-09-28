@@ -1,7 +1,7 @@
 package com.hexaport.domain.model.parents;
 
+import com.hexaport.domain.exception.InvalidNumericValueException;
 import com.hexaport.domain.exception.InvalidStatusException;
-import com.hexaport.domain.exception.InvalidXpValueException;
 import com.hexaport.domain.model.enums.Estados;
 import com.hexaport.domain.model.enums.Level;
 import com.hexaport.domain.model.enums.Rol;
@@ -33,7 +33,7 @@ public abstract class Usuario{
 
     public void addXP(double xp){
         if (xp < 0){
-            throw new InvalidXpValueException();
+            throw new InvalidNumericValueException("xp");
         }
 
         this.xpAcc += xp;
@@ -42,14 +42,14 @@ public abstract class Usuario{
 
     public void activate(){
         if (this.estado == Estados.ACTIVE){
-            throw new InvalidStatusException();
+            throw new InvalidStatusException("status");
         }
         this.estado = Estados.ACTIVE;
     }
 
     public void deactivate(){
         if (this.estado == Estados.INACTIVE){
-            throw new InvalidStatusException();
+            throw new InvalidStatusException("status");
         }
         this.estado = Estados.INACTIVE;
     }
